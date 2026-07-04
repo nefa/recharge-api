@@ -1,6 +1,6 @@
 import {
   Entity,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   Column,
   Unique,
 } from 'typeorm';
@@ -8,7 +8,7 @@ import {
 @Entity('public_holiday')
 @Unique(['country', 'date'])
 export class PublicHoliday {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn('uuid')
   id: string;
 
   @Column({ default: 'RO' })

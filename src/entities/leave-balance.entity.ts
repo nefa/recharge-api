@@ -1,6 +1,6 @@
 import {
   Entity,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   Column,
   ManyToOne,
   JoinColumn,
@@ -12,7 +12,7 @@ import { LeaveType } from './leave-type.entity';
 @Entity('leave_balance')
 @Unique(['userId', 'leaveTypeId', 'year'])
 export class LeaveBalance {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn('uuid')
   id: string;
 
   @Column({ name: 'user_id' })

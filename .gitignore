@@ -8,3 +8,34 @@ dist/
 *.log
 .DS_Store
 bun.lock
+
+# General
+node_modules
+.DS_STORE
+.vscode
+
+# Foundry files
+cache
+out-via-ir
+lcov.info
+
+# Claude Code
+.claude/
+
+# Obsidian
+docs/.obsidian/
+agents/.obsidian/
+
+# Agent plans, docs, and contexts (local only)
+agents/plans/
+agents/docs/
+agents/contexts/
+
+# Avoid ignoring gitkeep
+!/**/.gitkeep
+
+# Local gstack artifacts (security reports etc.) — never committed
+.gstack/
+
+# Serena MCP server local state
+.serena/

@@ -9,5 +9,6 @@ export default new DataSource({
   url: process.env.DATABASE_URL,
   entities: ['src/entities/*.entity.ts'],
   migrations: ['src/migrations/*.ts'],
+  subscribers: ['src/database/subscribers/*.subscriber.ts'],
   synchronize: false,
 });

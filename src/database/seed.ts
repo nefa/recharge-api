@@ -13,6 +13,7 @@ import { Invite } from '../entities/invite.entity';
 import { RefreshToken } from '../entities/refresh-token.entity';
 import { Role, LeaveStatus } from '../entities/enums';
 import { ROMANIAN_HOLIDAYS } from '../holidays/data/romanian-holidays';
+import { UuidV7Subscriber } from './subscribers/uuid-v7.subscriber';
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ const dataSource = new DataSource({
     Company, User, Department, LeaveType, LeaveBalance,
     LeaveRequest, PublicHoliday, Invite, RefreshToken,
   ],
+  subscribers: [UuidV7Subscriber],
   synchronize: true,
 });
 

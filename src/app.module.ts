@@ -25,6 +25,7 @@ import { LeaveRequest } from './entities/leave-request.entity';
 import { PublicHoliday } from './entities/public-holiday.entity';
 import { Invite } from './entities/invite.entity';
 import { RefreshToken } from './entities/refresh-token.entity';
+import { UuidV7Subscriber } from './database/subscribers/uuid-v7.subscriber';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { RefreshToken } from './entities/refresh-token.entity';
           Invite,
           RefreshToken,
         ],
+        subscribers: [UuidV7Subscriber],
         synchronize: config.get('NODE_ENV') !== 'production',
       }),
     }),
