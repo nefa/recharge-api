@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, In } from 'typeorm';
+import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 import { LeaveRequest } from '../entities/leave-request.entity';
 import { Department } from '../entities/department.entity';
@@ -105,19 +105,17 @@ export class DashboardService {
       relations: { members: true },
     });
 
-    const departmentSummary = await Promise.all(
-      departments.map(async (dept) => {
-        const onLeaveCount = onLeaveToday.filter(
-          (r) => r.user?.departmentId === dept.id,
-        ).length;
+    const departmentSummary = departments.map((dept) => {
+      const onLeaveCount = onLeaveToday.filter(
+        (r) => r.user?.departmentId === dept.id,
+      ).length;
 
-        return {
-          departmentName: dept.name,
-          memberCount: dept.members?.length ?? 0,
-          onLeaveCount,
-        };
-      }),
-    );
+      return {
+        departmentName: dept.name,
+        memberCount: dept.members?.length ?? 0,
+        onLeaveCount,
+      };
+    });
 
     return {
       pendingRequests,
