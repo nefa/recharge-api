@@ -47,7 +47,7 @@ export class AuthController {
   @Post('refresh')
   @HttpCode(HttpStatus.OK)
   async refresh(@Req() req: Request, @Res() res: Response) {
-    const oldToken = req.cookies?.['refresh_token'];
+    const oldToken = req.cookies?.['refresh_token'] as string | undefined;
     const result = await this.authService.refresh(oldToken);
     this.setRefreshCookie(res, result.refreshToken);
     return res.json({
@@ -59,7 +59,7 @@ export class AuthController {
   @Post('logout')
   @HttpCode(HttpStatus.OK)
   async logout(@Req() req: Request, @Res() res: Response) {
-    const refreshToken = req.cookies?.['refresh_token'];
+    const refreshToken = req.cookies?.['refresh_token'] as string | undefined;
     await this.authService.logout(refreshToken);
     res.clearCookie('refresh_token', { path: '/api/auth' });
     return res.json({ ok: true });

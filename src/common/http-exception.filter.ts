@@ -17,15 +17,23 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
 
     let status = HttpStatus.INTERNAL_SERVER_ERROR;
-    let message = 'Internal server error';
+    let message: string | string[] = 'Internal server error';
 
     if (exception instanceof HttpException) {
       status = exception.getStatus();
       const res = exception.getResponse();
-      message =
-        typeof res === 'string'
-          ? res
-          : (res as Record<string, unknown>).message as string ?? exception.message;
+      if (typeof res === 'string') {
+        message = res;
+      } else {
+        const resMessage = (res as { message?: unknown }).message;
+        if (typeof resMessage === 'string') {
+          message = resMessage;
+        } else if (Array.isArray(resMessage)) {
+          message = resMessage as string[];
+        } else {
+          message = exception.message;
+        }
+      }
     } else {
       this.logger.error('Unhandled exception', exception);
     }

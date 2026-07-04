@@ -5,7 +5,7 @@ export class UpdateDepartmentDto {
   @IsOptional()
   name?: string;
 
-  @ValidateIf((o) => o.managerId !== null)
+  @ValidateIf((o: UpdateDepartmentDto) => o.managerId !== null)
   @IsUUID()
   @IsOptional()
   managerId?: string | null;

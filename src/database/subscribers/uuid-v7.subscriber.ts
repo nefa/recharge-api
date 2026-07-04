@@ -6,8 +6,8 @@ import {
 import { uuidv7 } from 'uuidv7';
 
 @EventSubscriber()
-export class UuidV7Subscriber implements EntitySubscriberInterface {
-  beforeInsert(event: InsertEvent<any>) {
+export class UuidV7Subscriber implements EntitySubscriberInterface<{ id?: string }> {
+  beforeInsert(event: InsertEvent<{ id?: string }>) {
     if (event.entity && !event.entity.id) {
       event.entity.id = uuidv7();
     }

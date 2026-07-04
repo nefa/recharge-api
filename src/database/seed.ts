@@ -160,7 +160,6 @@ async function seed() {
   const sickType = leaveTypes.find((lt) => lt.name.includes('medical'))!;
   const personalType = leaveTypes.find((lt) => lt.name.includes('personala'))!;
 
-  const admin = users.get('admin@techro.ro')!;
   const maria = users.get('maria@techro.ro')!;
   const mihai = users.get('mihai@techro.ro')!;
   const ana = users.get('ana@techro.ro')!;
@@ -188,7 +187,7 @@ async function seed() {
   ];
 
   for (const req of sampleRequests) {
-    const lr = await requestRepo.save(requestRepo.create({
+    await requestRepo.save(requestRepo.create({
       userId: req.userId,
       leaveTypeId: req.type.id,
       startDate: new Date(req.start),

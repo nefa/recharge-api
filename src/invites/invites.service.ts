@@ -59,7 +59,7 @@ export class InvitesService {
       where: { id: saved.id },
       relations: { company: true },
     });
-    this.notificationsService.sendInviteEmail(
+    void this.notificationsService.sendInviteEmail(
       dto.email,
       company?.company?.name ?? '',
       saved.token,

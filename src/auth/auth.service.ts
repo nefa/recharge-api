@@ -92,7 +92,7 @@ export class AuthService {
     };
   }
 
-  async refresh(refreshToken: string) {
+  async refresh(refreshToken: string | undefined) {
     if (!refreshToken) {
       throw new UnauthorizedException('No refresh token');
     }
@@ -117,7 +117,7 @@ export class AuthService {
     };
   }
 
-  async logout(refreshToken: string) {
+  async logout(refreshToken: string | undefined) {
     if (!refreshToken) return;
     const stored = await this.refreshTokenRepo.findOne({
       where: { token: refreshToken },

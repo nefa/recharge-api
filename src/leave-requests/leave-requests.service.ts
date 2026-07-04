@@ -5,7 +5,7 @@ import {
   ForbiddenException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Not, In } from 'typeorm';
+import { Repository } from 'typeorm';
 import { LeaveRequest } from '../entities/leave-request.entity';
 import { LeaveBalance } from '../entities/leave-balance.entity';
 import { LeaveType } from '../entities/leave-type.entity';
@@ -95,7 +95,7 @@ export class LeaveRequestsService {
     if (leaveType.requiresApproval) {
       const manager = await this.departmentsService.getManagerForUser(userId);
       if (manager) {
-        this.notificationsService.sendRequestSubmitted(manager.email, {
+        void this.notificationsService.sendRequestSubmitted(manager.email, {
           employeeName: (await this.requestRepo.findOne({ where: { id: saved.id }, relations: { user: true } }))?.user?.name ?? '',
           leaveTypeName: leaveType.name,
           startDate: dto.startDate,
@@ -117,7 +117,7 @@ export class LeaveRequestsService {
   async approve(
     requestId: string,
     approverId: string,
-    approverRole: string,
+    approverRole: Role,
     approverCompanyId: string,
   ) {
     const request = await this.findOneWithRelations(requestId);
@@ -168,7 +168,7 @@ export class LeaveRequestsService {
 
     const startStr = request.startDate instanceof Date ? request.startDate.toISOString().split('T')[0] : String(request.startDate);
     const endStr = request.endDate instanceof Date ? request.endDate.toISOString().split('T')[0] : String(request.endDate);
-    this.notificationsService.sendRequestApproved(request.user.email, {
+    void this.notificationsService.sendRequestApproved(request.user.email, {
       employeeName: request.user.name,
       leaveTypeName: request.leaveType?.name ?? '',
       startDate: startStr,
@@ -182,7 +182,7 @@ export class LeaveRequestsService {
   async decline(
     requestId: string,
     approverId: string,
-    approverRole: string,
+    approverRole: Role,
     approverCompanyId: string,
   ) {
     const request = await this.findOneWithRelations(requestId);
@@ -218,7 +218,7 @@ export class LeaveRequestsService {
     const workingDays = calculateWorkingDays(new Date(request.startDate), new Date(request.endDate), holidayDates);
     const startStr = request.startDate instanceof Date ? request.startDate.toISOString().split('T')[0] : String(request.startDate);
     const endStr = request.endDate instanceof Date ? request.endDate.toISOString().split('T')[0] : String(request.endDate);
-    this.notificationsService.sendRequestDeclined(request.user.email, {
+    void this.notificationsService.sendRequestDeclined(request.user.email, {
       employeeName: request.user.name,
       leaveTypeName: request.leaveType?.name ?? '',
       startDate: startStr,
