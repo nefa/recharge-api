@@ -48,7 +48,7 @@ No external task tracker is wired up for this repo. Work is scoped directly in c
 - **Show changes before committing** — present a diff summary and wait for user approval before running `git commit`
 - **Commit per scope**, not per sub-task — group related changes into logical commits
 - **Commit message style**: short, plain, imperative (e.g. `add invite expiry check`, `fix leave balance rounding`) — this repo doesn't use Conventional Commits or semantic-release, match the existing history's style
-- **No CI is configured yet** for this repo (no `.github/workflows`). Run what does exist before committing — `bun run lint`, `nest build` — and once a test suite or CI exists, run/wait for those too
+- **No CI is configured yet** for this repo (no `.github/workflows`). Run what does exist before committing — `bun run build` (and `bun run lint` once eslint + config are added) — and once a test suite or CI exists, run/wait for those too
 - Do NOT add `Co-Authored-By: Claude` lines to commit messages
 
 ## Completion

@@ -14,7 +14,7 @@ bun run seed                # wipes and reseeds demo data (see src/database/seed
 bun run dev                 # NestJS on :3001, watch mode
 ```
 
-- `bun run lint` — eslint (no eslint config file currently checked in; verify one exists before relying on this).
+- `bun run lint` — currently not wired up (no `eslint` dependency/config checked in yet); add eslint + config before relying on this command.
 - `bun run typeorm:generate` / `typeorm:run` / `typeorm:revert` — migrations, via `typeorm.config.ts`. `src/migrations/` is currently empty — no migrations have been generated yet.
 - **There is no test suite in this repo yet** (no `*.spec.ts` / `*.test.ts` files). Don't claim "tests pass" — there's nothing to run. If you add tests, check for a runner/config first since none is wired up.
 
